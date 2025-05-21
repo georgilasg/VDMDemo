@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "vdm-demo-client-side-solution",
+    "id": "9226f9f7-d132-4bdc-a420-cb81db224300",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.21.1"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "vdm-demo description"
+      },
+      "longDescription": {
+        "default": "vdm-demo description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "vdm-demo Feature",
+        "description": "The feature that activates elements of the vdm-demo solution.",
+        "id": "84231f10-d1cb-42ec-9f2d-b67b1b62e223",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/vdm-demo.sppkg"
+  }
+}

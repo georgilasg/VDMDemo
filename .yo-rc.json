@@ -1,0 +1,19 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.15.0",
+    "sdksVersions": {},
+    "version": "1.21.1",
+    "libraryName": "vdm-demo",
+    "libraryId": "9226f9f7-d132-4bdc-a420-cb81db224300",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "vdm-demo",
+    "solutionShortDescription": "vdm-demo description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "extension",
+    "extensionType": "FormCustomizer"
+  }
+}

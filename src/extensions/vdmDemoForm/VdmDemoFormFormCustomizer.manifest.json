@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-extension-manifest.schema.json",
+
+  "id": "58254381-8614-438e-9e66-e972ae0fda85",
+  "alias": "VdmDemoFormFormCustomizer",
+  "componentType": "Extension",
+  "extensionType": "FormCustomizer",
+  "version": "*",
+  "manifestVersion": 2,
+  "requiresCustomScript": false
+}

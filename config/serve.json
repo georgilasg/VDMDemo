@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/spfx-serve.schema.json",
+  "port": 4321,
+  "https": true,
+  "serveConfigurations": {
+    "default": {
+      "pageUrl": "https://673r3q.sharepoint.com/sites/Test/_layouts/15/SPListForm.aspx",
+      "formCustomizer": {
+        "componentId": "58254381-8614-438e-9e66-e972ae0fda85",
+        "PageType": 8,
+        "RootFolder": "/sites/Test/Lists/VDMDemo",
+        "properties": {
+          "sampleText": "Value"
+        }
+      }
+    },
+    "vdmDemoForm_NewForm": {
+      "pageUrl": "https://673r3q.sharepoint.com/sites/Test/_layouts/15/SPListForm.aspx",
+      "formCustomizer": {
+        "componentId": "58254381-8614-438e-9e66-e972ae0fda85",
+        "PageType": 8,
+        "RootFolder": "/sites/Test/Lists/VDMDemo",
+        "properties": {
+          "sampleText": "Value"
+        }
+      }
+    },
+    "vdmDemoForm_EditForm": {
+      "pageUrl": "https://673r3q.sharepoint.com/sites/Test/_layouts/15/SPListForm.aspx",
+      "formCustomizer": {
+        "componentId": "58254381-8614-438e-9e66-e972ae0fda85",
+        "PageType": 6,
+        "RootFolder": "/sites/Test/Lists/VDMDemo",
+        "ID": 1,
+        "properties": {
+          "sampleText": "Value"
+        }
+      }
+    },
+    "vdmDemoForm_ViewForm": {
+      "pageUrl": "https://673r3q.sharepoint.com/sites/Test/_layouts/15/SPListForm.aspx",
+      "formCustomizer": {
+        "componentId": "58254381-8614-438e-9e66-e972ae0fda85",
+        "PageType": 4,
+        "RootFolder": "/sites/Test/Lists/VDMDemo",
+        "ID": 1,
+        "properties": {
+          "sampleText": "Value"
+        }
+      }
+    }
+  }
+}
