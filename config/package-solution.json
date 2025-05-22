@@ -3,7 +3,7 @@
   "solution": {
     "name": "vdm-demo-client-side-solution",
     "id": "9226f9f7-d132-4bdc-a420-cb81db224300",
-    "version": "1.0.0.0",
+    "version": "1.0.0.1",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,

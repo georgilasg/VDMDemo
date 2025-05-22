@@ -31,6 +31,13 @@ const VdmDemoForm: React.FC<IVdmDemoFormProps> = (props) => {
   const [selectedDocumentType, setSelectedDocumentType] = React.useState<string | undefined>(undefined);
   const [selectedDocumentSubTypes, setSelectedDocumentSubTypes] = React.useState<string[]>([]);
   const [filteredDocumentSubTypeOptions, setFilteredDocumentSubTypeOptions] = React.useState<IDropdownOption[]>([]);
+  const [webAPIoptions, setwebAPIoptions] = React.useState<IDropdownOption[]>([]);
+  const [tagOptions, setTagOptions] = React.useState<string[]>([
+    'Frontend',
+    'Backend',
+    'Database',
+    'Testing'
+  ]);
 
   const listItem = "VDMDemo";
   const listDocumentType = "DocumentType";
@@ -59,7 +66,6 @@ const VdmDemoForm: React.FC<IVdmDemoFormProps> = (props) => {
   ];
 
   //For the Tags Control, Options and CSS
-  const tagOptions: string[] = ['Frontend', 'Backend', 'Database', 'Testing'];
   const checkboxStyle = {
     marginRight: '8px',
     transform: 'scale(1.5)',  // Increase the size of the checkbox
@@ -101,30 +107,6 @@ const VdmDemoForm: React.FC<IVdmDemoFormProps> = (props) => {
     Title: string;
     PrincipalType: number;
   }
-
-  // Fetch data From the list item
-  const fetchItem = async (): Promise<void> => {
-    const response = await props.context.spHttpClient.get(
-      `${props.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('${listItem}')/items(${props.context.itemId})`,
-      SPHttpClient.configurations.v1
-    );
-    if (response.ok) {
-      const item = await response.json();
-
-      setTitle(item.Title || '');
-      setDescription(item.Description || '');
-      setStatus(item.Status || 'Not Started');
-      setPriority(item.Priority || 'Medium');
-      setDueDate(item.DueDate ? new Date(item.DueDate) : null);
-      setAssignedTo(item.AssignedToId?.toString() || '');
-      setCategory(item.Category || '');
-      setCompletion(item.CompletionPercentage || 0);
-      setComments(item.Comments || '');
-      setTags(item.Tags?.results || []);
-      setSelectedDocumentType(item.DocumentTypeId?.toString() || '');
-      setSelectedDocumentSubTypes(item.DocumentSubTypesId?.results?.map((id: number) => id.toString()) || []);
-    }
-  };
 
   // Fetch data for DocumentTypes (single lookup)
   const fetchDocumentTypes = async (): Promise<void> => {
@@ -195,6 +177,65 @@ const VdmDemoForm: React.FC<IVdmDemoFormProps> = (props) => {
       }
     } catch (error) {
       console.error('Error fetching DocumentSubTypes:', error);
+    }
+  };
+
+  const calllWebAPI = async (): Promise<void> => {
+    try {
+      const response = await fetch('https://vdm-web-api.azurewebsites.net/api/get-upload-folders?code=OSPDGGwI7Fd_lX5z57Q4yknu8o3oRwtQ2UxNQZK4jz-dAzFuaYpCeA==');
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json(); // or whatever your API returns
+      const options = data.map((item: string) => ({
+        key: item,
+        text: item,
+      }));
+      setwebAPIoptions(options);
+      console.log('calllWebAPI Function Response:', data);
+      //alert(`Fetched ${data.length} items.`);
+    } catch (err) {
+      console.error('Error calling calllWebAPI Function:', err);
+      alert(`API call failed: ${err}`);
+    }
+  };
+
+  // Fetch data From the list item
+  const fetchItem = async (): Promise<void> => {
+    const response = await props.context.spHttpClient.get(
+      `${props.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('${listItem}')/items(${props.context.itemId})`,
+      SPHttpClient.configurations.v1
+    );
+    if (response.ok) {
+      const item = await response.json();
+      setTitle(item.Title || '');
+      setDescription(item.Description || '');
+      setStatus(item.Status || 'Not Started');
+      setPriority(item.Priority || 'Medium');
+      setDueDate(item.DueDate ? new Date(item.DueDate) : null);
+      setAssignedTo(item.AssignedToId?.toString() || '');
+      setCategory(item.Category || '');
+      setCompletion(item.CompletionPercentage || 0);
+      setComments(item.Comments || '');
+
+      //Handle the selected Document Type + Document Sub Types
+      const docTypeId = item.DocumentTypeId?.toString() || '';
+      setSelectedDocumentType(docTypeId);
+      fetchDocumentSubTypes(docTypeId)
+        .then(() => {
+          setSelectedDocumentSubTypes(item.DocumentSubTypesId.map((id: number) => id.toString()));
+        })
+        .catch(console.error);
+
+      //Handle the selected Tags
+      if (item.Tags) {
+        setTags(item.Tags);
+
+        // Merge item tags
+        const mergedOptions = Array.from(new Set([...tagOptions, ...item.Tags]));
+        setTagOptions(mergedOptions);
+      }
     }
   };
 
@@ -505,6 +546,13 @@ const VdmDemoForm: React.FC<IVdmDemoFormProps> = (props) => {
       <Stack horizontal horizontalAlign="start" tokens={{ childrenGap: 10 }} style={{ marginTop: '20px' }}>
         <PrimaryButton text="Submit" onClick={handleSubmit} />
         <DefaultButton text="Cancel" onClick={() => props.onClose(false)} />
+      </Stack>
+      <Stack horizontal horizontalAlign="start" tokens={{ childrenGap: 10 }} style={{ marginTop: '20px' }}>
+        <DefaultButton text="Call Web API" onClick={calllWebAPI} />
+        <Dropdown
+          placeholder="Select"
+          options={webAPIoptions}
+        />
       </Stack>
     </div>
   );
